@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Их Засаг Политехник Коллеж</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='Images/school.jpg') }}" alt="School Logo" class="logo-img" style="height: 45px; width: auto; background: white; padding: 3px; border-radius: 4px;">
+                <div class="logo-text">
+                    <h1>ИХ ЗАСАГ</h1>
+                    <p>ПОЛИТЕХНИК КОЛЛЕЖ</p>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#about">Бидний тухай</a></li>
+                    <li><a href="#programs">Мэргэжилүүд</a></li>
+                    <li><a href="#news">Мэдээ мэдээлэл</a></li>
+                    <li><a href="#register" class="btn-nav">Онлайн бүртгэл</a></li>
+                    <li><a href="{{ url_for('admin_login') }}" class="btn-admin">Админ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Ирээдүйн мэргэжлээ эндээс эхэл</h2>
+            <p>Их Засаг Политехник Коллеж - Чанартай боловсрол, Мэргэжлийн ирээдүй</p>
+            <div class="hero-buttons">
+                <a href="#register" class="btn btn-primary">Элсэх хүсэлт өгөх</a>
+                <a href="#programs" class="btn btn-secondary">Мэргэжил сонгох</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>11+</h3>
+                <p>Мэргэшлийн хөтөлбөр</p>
+            </div>
+            <div class="stat-card">
+                <h3>100%</h3>
+                <p>Дадлагад суурилсан сургалт</p>
+            </div>
+            <div class="stat-card">
+                <h3>1000+</h3>
+                <p>Төгсөгчид</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Захирлын мэндчилгээ</h2>
+            <p class="section-subtitle">Бид танд бодит ур чадвар, эрэлттэй мэргэжил эзэмшүүлнэ</p>
+        </div>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>Их Засаг Политехник Коллеж нь орчин үеийн хөдөлмөрийн зах зээлийн шаардлагад нийцсэн мэргэжилтнүүдийг бэлтгэж байна. Манай сургалтын орчин, квалификаци бүхий багш нарын баг нь таныг амжилттай карьерт хүрэхэд тусална.</p>
+                <ul class="features-list">
+                    <li>✓ Орчин үеийн дадлагын лабораториуд</li>
+                    <li>✓ Мэргэшсэн туршлагатай багш нар</li>
+                    <li>✓ Ажлын байранд зуучлах сонирхолтой хөтөлбөрүүд</li>
+                </ul>
+            </div>
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='Images/principal.jpg') }}" alt="Коллежийн захирал" style="max-width: 100%; border-radius: 12px; background: white; padding: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.12);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="section bg-light">
+        <div class="section-header">
+            <h2 class="section-title">Мэргэжлийн хөтөлбөрүүд</h2>
+            <p class="section-subtitle">Өөрт тохирох мэргэжлээ сонгон суралцаарай</p>
+        </div>
+        <div class="programs-grid">
+            {% for key, prog in programs.items() %}
+            <a href="{{ url_for('hutulbur', program_slug=key) }}" class="program-link">
+                <div class="program-card">
+                    <div class="card-icon">{{ prog.icon }}</div>
+                    <h3>{{ prog.name }}</h3>
+                    <p>{{ prog.description }}</p>
+                    <span class="read-more-link">Дэлгэрэнгүй үзэх &rarr;</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="section">
+        <div class="section-header">
+            <h2 class="section-title">Сүүлийн үеийн мэдээ мэдээлэл</h2>
+            <p class="section-subtitle">Коллежийн үйл явдал, зарлалууд</p>
+        </div>
+        <div class="news-grid">
+            {% for item in news %}
+            <div class="news-card">
+                <span class="news-date">{{ item.date }}</span>
+                <h3>{{ item.title }}</h3>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="section bg-light">
+        <div class="section-header">
+            <h2 class="section-title">Онлайн бүртгэл</h2>
+            <p class="section-subtitle">Та доорх формоор бүртгүүлж, бидэнтэй холбогдоорой</p>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p class="registration-message registration-message-{{ category }}" role="status">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endwith %}
+        <form action="{{ url_for('register') }}" method="POST" class="register-form">
+            <div class="form-group">
+                <label for="fullname">Овог Нэр:</label>
+                <input type="text" id="fullname" name="fullname" required placeholder="Нэрээ оруулна уу">
+            </div>
+            <div class="form-group">
+                <label for="phone">Утасны дугаар:</label>
+                <input type="tel" id="phone" name="phone" required placeholder="88881111">
+            </div>
+            <div class="form-group">
+                <label for="email">И-мэйл хаяг:</label>
+                <input type="email" id="email" name="email" required placeholder="example@mail.com">
+            </div>
+            <div class="form-group">
+                <label for="program">Сонгох мэргэжил:</label>
+                <select id="program" name="program" required>
+                    {% for key, prog in programs.items() %}
+                    <option value="{{ prog.name }}">{{ prog.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Бүртгүүлэх</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div>
+                <h3>Их Засаг Политехник Коллеж</h3>
+                <p>Бүх эрх хуулиар хамгаалагдсан © 2026</p>
+            </div>
+            <div>
+                <h4>Холбоос</h4>
+                <ul>
+                    <li><a href="#about">Бидний тухай</a></li>
+                    <li><a href="#programs">Мэргэжилүүд</a></li>
+                    <li><a href="#register">Онлайн бүртгэл</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Холбоо барих</h4>
+                <p>Улаанбаатар хот, Монгол Улс</p>
+                <p>Утас: +976 11-123456</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Их Засаг Политехник Коллеж</p>
+        </div>
+    </footer>
+
+</body>
+</html>

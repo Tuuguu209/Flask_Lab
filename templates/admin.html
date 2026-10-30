@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ удирдлагын хэсэг</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-text">
+                    <h1>АДМИН ПАНЕЛ</h1>
+                    <p>Их Засаг Политехник Коллеж</p>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="{{ url_for('index') }}" target="_blank">Сайт үзэх</a></li>
+                    <li><a href="{{ url_for('admin_logout') }}" class="btn-admin">Гарах</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">Бүртгүүлсэн оюутнууд</h2>
+            <p class="section-subtitle">Онлайн бүртгэлээр ирсэн хүсэлтүүд</p>
+            <p class="section-subtitle">
+                <a href="{{ google_sheet_url }}" target="_blank" rel="noopener noreferrer">Google Sheets дээр бүртгэл харах</a>
+            </p>
+        </div>
+
+        <div style="overflow-x: auto; margin-bottom: 50px;">
+            <table style="width: 100%; border-collapse: collapse; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <thead>
+                    <tr style="background: #0b2545; color: white; text-align: left;">
+                        <th style="padding: 12px;">ID</th>
+                        <th style="padding: 12px;">Овог нэр</th>
+                        <th style="padding: 12px;">Утас</th>
+                        <th style="padding: 12px;">И-мэйл</th>
+                        <th style="padding: 12px;">Мэргэжил</th>
+                        <th style="padding: 12px;">Үйлдэл</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reg in registrations %}
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 12px;">{{ reg.id }}</td>
+                        <td style="padding: 12px;">{{ reg.fullname }}</td>
+                        <td style="padding: 12px;">{{ reg.phone }}</td>
+                        <td style="padding: 12px;">{{ reg.email }}</td>
+                        <td style="padding: 12px;">{{ reg.program }}</td>
+                        <td style="padding: 12px;"><a href="{{ url_for('delete_registration', reg_id=reg.id) }}" style="color: #ee6c4d; text-decoration: none; font-weight: bold;">Устгах</a></td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="6" style="padding: 20px; text-align: center; color: #64748b;">Бүртгэл байхгүй байна.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title">Мэдээ нэмэх</h2>
+        </div>
+        <form action="{{ url_for('add_news') }}" method="POST" class="register-form" style="margin-bottom: 50px;">
+            <div class="form-group">
+                <label>Огноо:</label>
+                <input type="text" name="date" required placeholder="2026-10-30">
+            </div>
+            <div class="form-group">
+                <label>Мэдээний гарчиг:</label>
+                <input type="text" name="title" required placeholder="Мэдээний гарчиг энд бичнэ үү">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Мэдээ нэмэх</button>
+        </form>
+
+        <div class="section-header">
+            <h2 class="section-title">Одоогийн мэдээнүүд</h2>
+        </div>
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                <thead>
+                    <tr style="background: #0b2545; color: white; text-align: left;">
+                        <th style="padding: 12px;">Огноо</th>
+                        <th style="padding: 12px;">Гарчиг</th>
+                        <th style="padding: 12px;">Үйлдэл</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in news %}
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 12px;">{{ item.date }}</td>
+                        <td style="padding: 12px;">{{ item.title }}</td>
+                        <td style="padding: 12px;"><a href="{{ url_for('delete_news', news_id=item.id) }}" style="color: #ee6c4d; text-decoration: none; font-weight: bold;">Устгах</a></td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="3" style="padding: 20px; text-align: center; color: #64748b;">Мэдээ байхгүй байна.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

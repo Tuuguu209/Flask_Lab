@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ program.name }} - Их Засаг Политехник Коллеж</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-text">
+                    <h1>ИХ ЗАСАГ</h1>
+                    <p>ПОЛИТЕХНИК КОЛЛЕЖ</p>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Нүүр хуудас</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="register-form" style="max-width: 800px; text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">{{ program.icon }}</div>
+            <h1 style="color: #0b2545; margin-bottom: 20px; font-size: 2.5rem;">{{ program.name }}</h1>
+            <p style="font-size: 1.2rem; line-height: 1.8; color: #64748b; margin-bottom: 30px;">{{ program.description }}</p>
+            <a href="{{ url_for('index') }}#register" class="btn btn-primary">Энэ мэргэжлээр бүртгүүлэх</a>
+            <div style="margin-top: 20px;">
+                <a href="{{ url_for('index') }}" style="color: #134074; text-decoration: none; font-weight: 500;">&larr; Буцах</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
